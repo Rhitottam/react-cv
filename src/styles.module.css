@@ -1,12 +1,13 @@
-
-
 .cvContainer {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  min-height: 500px
+  min-height: 500px;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .appContainer {
-  padding-top:  30px;
+  padding-top: 30px;
   margin: auto;
   max-width: 960px;
 }
@@ -37,15 +38,15 @@
 }
 
 .contactListItem {
-
 }
 
 .sectionContainer {
   margin: 1rem;
+  display: flex;
 }
 
 .contactListItemContent {
-  color:hsl(0, 0%, 96%)	;
+  color: hsl(0, 0%, 96%);
   margin-left: 10px;
 }
 
@@ -53,8 +54,9 @@
   display: inline;
 }
 
-.companyMeta, .projectMeta {
-  padding: 1em;
+.companyMeta,
+.projectMeta {
+  padding: 1em 0em 1em 0em;
 }
 
 .projectTitle {
@@ -81,7 +83,6 @@ hr {
 body {
   background-color: #f5f5f5;
 }
-
 
 .project-group:not(:first-of-type) {
   margin-top: 30px;
@@ -121,4 +122,10 @@ body {
 .branding {
   margin-top: 20px;
   text-align: center;
+}
+
+.wrapAndCover {
+  flex-wrap: wrap;
+  display: flex;
+  max-width: 100%;
 }

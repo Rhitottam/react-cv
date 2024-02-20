@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import mergeClass from 'classnames';
-import '../styles.module.css';
-import Section from './Section';
-import BulmaCSS from '../bulma.module.css';
+import React from "react";
+import PropTypes from "prop-types";
+import mergeClass from "classnames";
+import "../styles.module.css";
+import Section from "./Section";
+import BulmaCSS from "../bulma.module.css";
 
 export function PureTagList({ tags = [], tagClass }) {
   return (
-    <div className={mergeClass(BulmaCSS.tags, BulmaCSS['are-medium'])}>
+    <div className={mergeClass(BulmaCSS.tags, BulmaCSS["are-small"])}>
       {tags.map((tag, i) => (
         <div className={mergeClass(BulmaCSS.tag, BulmaCSS[tagClass])} key={i}>
           {tag}
@@ -23,18 +23,12 @@ PureTagList.propTypes = {
 };
 
 PureTagList.defaultProps = {
-  tagClass: 'is-info',
+  tagClass: "is-info",
 };
 
-export default function TagsList({
-  title, description, icon, items,
-}) {
+export default function TagsList({ title, description, icon, items }) {
   return (
-    <Section
-      title={title}
-      content={description}
-      icon={icon}
-    >
+    <Section title={title} content={description} icon={icon}>
       <PureTagList tags={items} tagClass="is-primary" />
     </Section>
   );

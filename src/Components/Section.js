@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import mergeClassNames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import PropTypes from "prop-types";
+import mergeClassNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
   faGraduationCap,
@@ -13,10 +13,10 @@ import {
   faCubes,
   faExclamation,
   faUserTie,
-} from '@fortawesome/free-solid-svg-icons';
-import BulmaCSS from '../bulma.module.css';
-import Styles from '../styles.module.css';
-import MarkdownRenderer from './MarkdownRenderer';
+} from "@fortawesome/free-solid-svg-icons";
+import BulmaCSS from "../bulma.module.css";
+import Styles from "../styles.module.css";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 const predefinedIcons = {
   graduation: faGraduationCap,
@@ -31,41 +31,69 @@ const predefinedIcons = {
 };
 
 export default function Section({
-  title, content, icon, children, xtraClassName,
+  title,
+  content,
+  icon,
+  children,
+  xtraClassName,
+  gridColStart,
+  gridColEnd,
+  gridRowStart,
+  gridRowEnd,
 }) {
-  const iconComp = typeof icon === 'string' ? (predefinedIcons[icon] || faExclamation) : icon;
+  const iconComp =
+    typeof icon === "string" ? predefinedIcons[icon] || faExclamation : icon;
 
   return (
-    <div className={mergeClassNames(BulmaCSS.container, Styles.sectionContainer, xtraClassName)}>
-      <div className={mergeClassNames(BulmaCSS.columns)}>
-        <div className={mergeClassNames(BulmaCSS['is-full'], BulmaCSS.column)}>
-          <h4 className={mergeClassNames(BulmaCSS.title, Styles.sectionTitle, BulmaCSS['is-size-4'], Styles.avoidBreakingOnPrint)}>
+    <div
+      style={{
+        gridColumnStart: gridColStart ?? 1,
+        gridColumnEnd: gridColEnd ?? -1,
+        gridRowStart: gridRowStart ?? "auto",
+        gridRowEnd: gridRowEnd ?? "auto",
+      }}
+      className={mergeClassNames(
+        BulmaCSS.container,
+        Styles.sectionContainer,
+        xtraClassName,
+      )}
+    >
+      <div style={{ flex: 1 }} className={mergeClassNames(BulmaCSS.columns)}>
+        <div className={mergeClassNames(BulmaCSS["is-full"], BulmaCSS.column)}>
+          <h4
+            className={mergeClassNames(
+              BulmaCSS.title,
+              Styles.sectionTitle,
+              BulmaCSS["is-size-4"],
+              Styles.avoidBreakingOnPrint,
+            )}
+          >
             <span className={Styles.sectionIcon}>
               <FontAwesomeIcon icon={iconComp} />
             </span>
             {title}
           </h4>
           <hr className={Styles.diver} />
-          {content
-      && (
-      <div className={mergeClassNames(Styles.sectionContent)}>
-        {
-          typeof content === 'string'
-            ? (
-              <MarkdownRenderer
-                markdown={content}
-              />
-            )
-            : content
-        }
-      </div>
-      )}
-          {children
-        && (
-        <div className={mergeClassNames(Styles.sectionContent, BulmaCSS.container, BulmaCSS['is-small'])}>
-          {children}
-        </div>
-        )}
+          {content && (
+            <div className={mergeClassNames(Styles.sectionContent)}>
+              {typeof content === "string" ? (
+                <MarkdownRenderer markdown={content} />
+              ) : (
+                content
+              )}
+            </div>
+          )}
+          {children && (
+            <div
+              className={mergeClassNames(
+                Styles.sectionContent,
+                BulmaCSS.container,
+                BulmaCSS["is-small"],
+              )}
+            >
+              {children}
+            </div>
+          )}
         </div>
       </div>
     </div>

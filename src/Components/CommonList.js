@@ -1,15 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import mergeClassNames from 'classnames';
-import BulmaCSS from '../bulma.module.css';
-import Styles from '../styles.module.css';
-import Section from './Section';
-import { getFixedUrl } from '../utils';
-import { PureTagList } from './TagsList';
-import MarkdownRenderer from './MarkdownRenderer';
+import React from "react";
+import PropTypes from "prop-types";
+import mergeClassNames from "classnames";
+import BulmaCSS from "../bulma.module.css";
+import Styles from "../styles.module.css";
+import Section from "./Section";
+import { getFixedUrl } from "../utils";
+import { PureTagList } from "./TagsList";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 export default function CommonList({
-  title, description, icon, items, xtraClassName,
+  title,
+  description,
+  icon,
+  items,
+  xtraClassName,
+  ...rest
 }) {
   return (
     <Section
@@ -17,37 +22,100 @@ export default function CommonList({
       title={title}
       content={description}
       icon={icon}
+      {...rest}
     >
-      <div className={mergeClassNames(BulmaCSS.container, BulmaCSS['is-medium'], Styles.commonListContainer)}>
+      <div
+        className={mergeClassNames(
+          BulmaCSS.container,
+          BulmaCSS["is-medium"],
+          Styles.commonListContainer,
+        )}
+      >
         {items.map((item, i) => {
           const {
             authority,
-            authorityWebSite, authorityMeta, rightSide,
+            authorityWebSite,
+            authorityMeta,
+            rightSide,
             title: itemTitle,
             description: itemDesc,
             descriptionTags,
           } = item;
           return (
-            <div className={mergeClassNames(BulmaCSS.content, Styles.avoidBreakingOnPrint)} key={i}>
-              <div className={mergeClassNames(BulmaCSS.level, BulmaCSS['is-marginless'], BulmaCSS['is-paddingless'])}>
-                <h5 className={mergeClassNames(BulmaCSS.title, BulmaCSS['is-marginless'], BulmaCSS['level-left'], BulmaCSS['is-size-5'])}>
+            <div
+              className={mergeClassNames(
+                BulmaCSS.content,
+                Styles.avoidBreakingOnPrint,
+              )}
+              key={i}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0 em",
+              }}
+            >
+              <div
+                className={mergeClassNames(
+                  BulmaCSS.level,
+                  BulmaCSS["is-marginless"],
+                  BulmaCSS["is-paddingless"],
+                  Styles.wrapAndCover,
+                )}
+              >
+                <h5
+                  className={mergeClassNames(
+                    BulmaCSS.title,
+                    BulmaCSS["is-marginless"],
+                    BulmaCSS["level-left"],
+                    BulmaCSS["is-size-5"],
+                    Styles.wrapAndCover,
+                  )}
+                >
                   {itemTitle}
                 </h5>
-                <span className={mergeClassNames(BulmaCSS['level-right'])}>{rightSide}</span>
+                <span
+                  className={mergeClassNames(
+                    BulmaCSS["level-right"],
+                    Styles.wrapAndCover,
+                  )}
+                >
+                  {rightSide}
+                </span>
               </div>
-              <h6
-                className={mergeClassNames(BulmaCSS.subtitle, Styles.companyTitle, BulmaCSS['is-size-6'])}
+              <div
+                className={mergeClassNames(
+                  BulmaCSS.subtitle,
+                  Styles.companyTitle,
+                  BulmaCSS["is-size-6"],
+                  Styles.wrapAndCover,
+                  BulmaCSS["is-marginless"],
+                )}
+                style={{ display: "flex", gap: "0.5em" }}
               >
-                {authorityWebSite ? <a href={getFixedUrl(authorityWebSite)} target="_blank" rel="noreferrer">{authority}</a> : authority}
-              </h6>
-              { authorityMeta
-                ? <span className={mergeClassNames(Styles.companyMeta)}>{`(${authorityMeta})`}</span>
-                : null}
+                <h6 className={mergeClassNames(Styles.wrapAndCover)}>
+                  {authorityWebSite ? (
+                    <a
+                      href={getFixedUrl(authorityWebSite)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {authority}
+                    </a>
+                  ) : (
+                    authority
+                  )}
+                </h6>
+                {authorityMeta ? (
+                  <span
+                  // className={mergeClassNames(Styles.companyMeta)}
+                  >{`(${authorityMeta})`}</span>
+                ) : null}
+              </div>
               <div>
-                {descriptionTags && <PureTagList tags={descriptionTags} tagClass="is-info" /> }
-                <MarkdownRenderer
-                  markdown={itemDesc}
-                />
+                {descriptionTags && (
+                  <PureTagList tags={descriptionTags} tagClass="is-info" />
+                )}
+                <MarkdownRenderer markdown={itemDesc} />
               </div>
             </div>
           );

@@ -41,7 +41,7 @@ export default function ReactCV({ personalData, sections, branding }) {
 
         </div>
       </main>
-      {branding && (
+      {/* {branding && (
       <div className={Styles.branding}>
         Craft your personalized CV effortlessly with
         {' '}
@@ -53,7 +53,7 @@ export default function ReactCV({ personalData, sections, branding }) {
         {' '}
         and set yourself apart professionally.
       </div>
-      )}
+      )} */}
     </section>
   );
 }
